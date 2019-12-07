@@ -1,0 +1,119 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "29.0.1"
+    defaultConfig {
+        applicationId "com.example.ekoassignment"
+        minSdkVersion 25
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+            testCoverageEnabled true
+            ext.alwaysUpdateBuildId = false
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dexOptions {
+        preDexLibraries false
+        maxProcessCount 4
+        javaMaxHeapSize "2g"
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 240, 'hours'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    sharedSupportLibraries dependencies
+
+    implementation "androidx.paging:paging-runtime:latest.release"
+
+    // Room components
+    implementation "androidx.room:room-runtime:latest.release"
+    implementation "androidx.room:room-ktx:latest.release"
+    kapt "androidx.room:room-compiler:latest.release"
+    androidTestImplementation "androidx.room:room-testing:latest.release"
+
+    // Retrofit Lib
+    implementation "com.squareup.retrofit2:retrofit:latest.release"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:latest.release"
+    implementation 'com.squareup.retrofit2:converter-gson:latest.release'
+    implementation 'com.squareup.okio:okio:latest.release'
+
+    // OKHttp Lib
+    implementation "com.squareup.okhttp3:okhttp:3.14.1"
+    implementation "com.squareup.okhttp3:logging-interceptor:3.14.1"
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:3.14.1"
+
+    //android architecture components
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleExtensionVersion"
+
+    // Coroutine dependencies
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.0"
+
+    //Kotlin-Koin
+    implementation "org.koin:koin-android:$rootProject.kotlinKoinVersion"
+    implementation "org.koin:koin-androidx-viewmodel:$rootProject.kotlinKoinVersion"
+    implementation "com.google.code.gson:gson:latest.release"
+
+    androidTestImplementation "org.koin:koin-test:$rootProject.kotlinKoinVersion"
+    testImplementation "org.mockito:mockito-inline:latest.release"
+    testImplementation "org.koin:koin-test:$rootProject.kotlinKoinVersion"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation "org.powermock:powermock-core:latest.release"
+    testImplementation "org.powermock:powermock-module-junit4:latest.release"
+    testImplementation "org.powermock:powermock-api-mockito2:latest.release"
+    testImplementation "com.nhaarman:mockito-kotlin:latest.release", {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+
+    androidTestImplementation "com.nhaarman:mockito-kotlin:latest.release", {
+        exclude group: 'org.jetbrains.kotlin'
+    }
+}
+
+kotlin {
+    experimental {
+        coroutines "enable"
+    }
+}

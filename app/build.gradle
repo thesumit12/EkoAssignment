@@ -95,6 +95,11 @@ dependencies {
     implementation "com.google.code.gson:gson:latest.release"
 
     androidTestImplementation "org.koin:koin-test:$rootProject.kotlinKoinVersion"
+    androidTestImplementation "org.mockito:mockito-inline:latest.release"
+
+    androidTestImplementation 'androidx.test:rules:latest.release'
+    testImplementation "android.arch.core:core-testing:2.0.0"
+
     testImplementation "org.mockito:mockito-inline:latest.release"
     testImplementation "org.koin:koin-test:$rootProject.kotlinKoinVersion"
     testImplementation 'junit:junit:4.12'

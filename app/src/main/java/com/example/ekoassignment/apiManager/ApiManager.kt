@@ -2,7 +2,6 @@ package com.example.ekoassignment.apiManager
 
 import android.util.Log
 import com.example.ekoassignment.model.TodoItem
-import com.example.ekoassignment.model.TodoResponse
 import com.example.ekoassignment.network.IApiService
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,14 +20,14 @@ open class ApiManager(val apiService: IApiService) {
     open suspend fun getTodoList(): List<TodoItem> {
         val request = apiService.getTodoList()
         val response = executeTodoCall(request)
-        if (response is TodoResponse) {
-            return response.todoList
+        return if (response is List<*>) {
+            response as List<TodoItem>
         } else
-            return arrayListOf()
+            arrayListOf()
     }
 
     @ExperimentalCoroutinesApi
-    private suspend fun executeTodoCall(call: Deferred<TodoResponse>) = try {
+    private suspend fun executeTodoCall(call: Deferred<List<TodoItem>>) = try {
         call.join()
         call.getCompleted()
     }catch (ex: Exception) {

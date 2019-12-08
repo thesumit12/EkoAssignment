@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">EkoAssignment</string>
+    <string name="no_data">Data not found!!</string>
+    <string name="try_again">Try Again</string>
 </resources>

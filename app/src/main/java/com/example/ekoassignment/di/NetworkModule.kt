@@ -21,7 +21,7 @@ private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
 val networkModule = module {
     single { createOkHttpClient(androidContext()) }
     single { createGsonConverter() }
-    single { createRetrofitBuilder(get()) }
+    single { createRetrofitBuilder(get(), get()) }
 
     single { createApiService(get(), BASE_URL) }
 }
@@ -65,9 +65,9 @@ fun createGsonConverter(): Gson = GsonBuilder().setLenient().create()
  * @author Sumit Lakra
  * @date 12/07/19
  */
-fun createRetrofitBuilder(okHttpClient: OkHttpClient): Retrofit.Builder =
+fun createRetrofitBuilder(okHttpClient: OkHttpClient, gson: Gson): Retrofit.Builder =
     Retrofit.Builder().client(okHttpClient)
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(GsonConverterFactory.create(gson))
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
 
 /**

@@ -1,6 +1,6 @@
 package com.example.ekoassignment.network
 
-import com.example.ekoassignment.model.TodoResponse
+import com.example.ekoassignment.model.TodoItem
 import kotlinx.coroutines.Deferred
 import retrofit2.http.GET
 
@@ -12,5 +12,5 @@ import retrofit2.http.GET
 interface IApiService {
 
     @GET("todos")
-    fun getTodoList(): Deferred<TodoResponse>
+    fun getTodoList(): Deferred<List<TodoItem>>
 }

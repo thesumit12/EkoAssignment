@@ -1,5 +1,4 @@
 # ToDo Mobile App
-- - - -
 
 ## Business Requirement
 
